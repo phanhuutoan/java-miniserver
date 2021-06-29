@@ -1,0 +1,17 @@
+FROM node:14 AS nodejs
+
+RUN echo "Install nodejs"
+
+FROM openjdk:7 
+
+COPY --from=nodejs . .
+
+WORKDIR /home/app
+
+COPY package.json .
+
+RUN npm i
+
+COPY . .
+
+CMD ["npm", "run", "start"]
